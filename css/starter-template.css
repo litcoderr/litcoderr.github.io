@@ -4,7 +4,21 @@ body {
 .navbar{
   background-color: #26547C;
 }
+
 .starter-template {
   padding: 3rem 1.5rem;
   text-align: center;
+}
+
+.btn-outline-youtube {
+  color: #CC3363;
+  background-image: none;
+  background-color: transparent;
+  border-color: #CC3363;
+}
+
+.btn-outline-youtube:hover {
+  color: #fff;
+  background-color: #CC3363;
+  border-color: #CC3363;
 }
