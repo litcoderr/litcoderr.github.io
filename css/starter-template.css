@@ -23,8 +23,8 @@ body {
   left: 0;
   top: 0;
   z-index: -1;
-  opacity: .8;
-  filter: blur(.2px);
+  opacity: 0.95;
+  filter: blur(1px);
 }
 #background_image img{
   width: 100%;
