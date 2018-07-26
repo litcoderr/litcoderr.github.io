@@ -31,6 +31,10 @@ body {
   height: 100%;
 }
 
+.cover{
+  object-fit: cover;
+}
+
 #AboutMe .content_container{
   color: white;
 }
