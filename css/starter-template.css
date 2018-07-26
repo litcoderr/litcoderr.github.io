@@ -5,9 +5,15 @@ body {
   background-color: #26547C;
 }
 
-.starter-template {
+.content_container {
   padding: 3rem 1.5rem;
   text-align: center;
+}
+
+#AboutMe {
+  outline-style: solid; 
+  outline-color: #59C9A5;
+  outline-width: 4px;
 }
 
 .btn-outline-youtube {
