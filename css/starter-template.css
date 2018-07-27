@@ -4,6 +4,24 @@ body {
 .navbar{
   background-color: #26547C;
 }
+.content_container {
+  padding: 3rem 1.5rem;
+  text-align: center;
+}
+.cover{
+  object-fit: cover;
+}
+.btn-outline-youtube {
+  color: #CC3363;
+  background-image: none;
+  background-color: transparent;
+  border-color: #CC3363;
+}
+.btn-outline-youtube:hover {
+  color: #fff;
+  background-color: #CC3363;
+  border-color: #CC3363;
+}
 
 #AboutMe_Banner {
   border-style: solid; 
@@ -11,12 +29,13 @@ body {
   border-width: 4px;
   margin-bottom: 1em;
 }
-
-.content_container {
-  padding: 3rem 1.5rem;
-  text-align: center;
+#MyWorks_Banner{
+  width: 100%;
+  margin: 0em 0em 1em 0em;
+  padding: 0em;
+  background-color: #EF5350;
+  color: #FDFFFC;
 }
-
 #background_image{
   position: absolute;
   width: 100%;
@@ -31,24 +50,6 @@ body {
   width: 100%;
   height: 100%;
 }
-
-.cover{
-  object-fit: cover;
-}
-
 #AboutMe_Banner .content_container{
-  color: white;
-}
-
-.btn-outline-youtube {
-  color: #CC3363;
-  background-image: none;
-  background-color: transparent;
-  border-color: #CC3363;
-}
-
-.btn-outline-youtube:hover {
-  color: #fff;
-  background-color: #CC3363;
-  border-color: #CC3363;
+  color: #FDFFFC;
 }
