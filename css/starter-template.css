@@ -36,6 +36,23 @@ body {
   background-color: #EF5350;
   color: #FDFFFC;
 }
+#MyWorks_Banner h1{
+ margin: 0; 
+}
+@media (max-width: 992px){
+  #MyWorks_Banner {
+    width: 100%;
+    height: 100px;
+    margin: 0em 0em 1em 0em;
+    padding: 10px 20px;
+    background-color: #EF5350;
+    color: #FDFFFC;
+  }
+  #MyWorks_Banner .content_container{
+    padding: 1rem 3rem;
+    text-align: center;
+  }
+}
 #background_image{
   position: absolute;
   width: 100%;
