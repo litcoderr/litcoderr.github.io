@@ -4,9 +4,18 @@ body {
 .navbar{
   background-color: #26547C;
 }
+.navbar-brand{
+  font-family: 'Lobster', cursive;
+}
 .content_container {
   padding: 3rem 1.5rem;
   text-align: center;
+}
+.content_container h1{
+  font-family: 'Playfair Display', serif;
+}
+.content_container p{
+  font-family: 'Muli', sans-serif;
 }
 .cover{
   object-fit: cover;
@@ -33,7 +42,7 @@ body {
   width: 100%;
   margin: 0em 0em 1em 0em;
   padding: 0em;
-  background-color: #EF5350;
+  background-color: #0097A7;
   color: #FDFFFC;
 }
 #MyWorks_Banner h1{
