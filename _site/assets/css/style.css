@@ -542,3 +542,7 @@ table {
     color: #008080; }
   .highlight .il {
     color: #099; }
+
+img {
+  height: 3em;
+  float: left; }
