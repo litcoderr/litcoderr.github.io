@@ -1,18 +1,15 @@
 ---
-layout: page
+layout: default
 title: About
 permalink: /about/
 ---
+## Goal
+- Promote development knowldege and insights to the public
+- Be organized on my dev work
+- Stay motivated
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](https://jekyllrb.com/)
-
-You can find the source code for Minima at GitHub:
-[jekyll][jekyll-organization] /
-[minima](https://github.com/jekyll/minima)
-
-You can find the source code for Jekyll at GitHub:
-[jekyll][jekyll-organization] /
-[jekyll](https://github.com/jekyll/jekyll)
-
-
-[jekyll-organization]: https://github.com/jekyll
+## Contact Me
+- <i class="fab fa-facebook-square"></i> Facebook : [link](https://www.facebook.com/jameschee2000)
+- <i class="fab fa-facebook-square"></i> Facebook Page : [link](https://www.facebook.com/litdevblog/)
+- <i class="fab fa-github"></i> Github : [link](https://github.com/litcoderr)
+- <i class="fab fa-google"></i> Email : [litcoderr@gmail.com](litcoderr@gmail.com)
