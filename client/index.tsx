@@ -9,7 +9,7 @@ type MainProps = {
 function MainComponent(props: MainProps) {
     return (
         <div>
-            Main Component
+            Main Component !!
         </div>
     )
 }

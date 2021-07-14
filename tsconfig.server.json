@@ -6,5 +6,5 @@
       "esModuleInterop": true,
       "target": "es5"
     },
-    "exclude": ["./client", "./server/dist"]
+    "exclude": ["./client", "./server/dist", "./bundle.js"]
 }

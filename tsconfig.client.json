@@ -1,11 +1,11 @@
 {
     "compilerOptions": {
-      "outDir": "./client/dist/",
+      "outDir": "./",
       "noImplicitAny": true,
       "module": "commonjs",
       "esModuleInterop": true,
       "target": "es5",
       "jsx": "react"
     },
-    "exclude": ["./server", "./client/dist"]
+    "exclude": ["./server", "./client/dist", "./bundle.js"]
 }
