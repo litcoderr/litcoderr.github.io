@@ -94,7 +94,19 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\nvar __importDefault = (this && this.__importDefault) || function (mod) {\n    return (mod && mod.__esModule) ? mod : { \"default\": mod };\n};\nObject.defineProperty(exports, \"__esModule\", { value: true });\nvar react_1 = __importDefault(__webpack_require__(/*! react */ \"./node_modules/react/index.js\"));\nvar react_dom_1 = __importDefault(__webpack_require__(/*! react-dom */ \"./node_modules/react-dom/index.js\"));\n__webpack_require__(/*! ./style.css */ \"./client/style.css\");\nfunction MainComponent(props) {\n    return (react_1.default.createElement(\"div\", null, \"Main Component !!\"));\n}\nreact_dom_1.default.render(react_1.default.createElement(MainComponent, null), document.getElementById('root'));\n\n\n//# sourceURL=webpack:///./client/index.tsx?");
+eval("\nvar __importDefault = (this && this.__importDefault) || function (mod) {\n    return (mod && mod.__esModule) ? mod : { \"default\": mod };\n};\nObject.defineProperty(exports, \"__esModule\", { value: true });\nvar react_1 = __importDefault(__webpack_require__(/*! react */ \"./node_modules/react/index.js\"));\nvar react_dom_1 = __importDefault(__webpack_require__(/*! react-dom */ \"./node_modules/react-dom/index.js\"));\nvar intro_1 = __importDefault(__webpack_require__(/*! ./intro */ \"./client/intro.tsx\"));\n__webpack_require__(/*! ./style.css */ \"./client/style.css\");\n// set up dynamic vh for mobile viewports\nwindow.addEventListener('resize', function () {\n    var vh = window.innerHeight * 0.01;\n    document.documentElement.style.setProperty('--vh', vh + \"px\");\n});\nfunction MainComponent(props) {\n    return (react_1.default.createElement(\"div\", { id: \"main\" },\n        react_1.default.createElement(intro_1.default, null)));\n}\nreact_dom_1.default.render(react_1.default.createElement(MainComponent, null), document.getElementById('root'));\n\n\n//# sourceURL=webpack:///./client/index.tsx?");
+
+/***/ }),
+
+/***/ "./client/intro.tsx":
+/*!**************************!*\
+  !*** ./client/intro.tsx ***!
+  \**************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\nvar __importDefault = (this && this.__importDefault) || function (mod) {\n    return (mod && mod.__esModule) ? mod : { \"default\": mod };\n};\nObject.defineProperty(exports, \"__esModule\", { value: true });\nvar react_1 = __importDefault(__webpack_require__(/*! react */ \"./node_modules/react/index.js\"));\n__webpack_require__(/*! ./style.css */ \"./client/style.css\");\nvar HeaderCanvas = /** @class */ (function () {\n    function HeaderCanvas() {\n        this.canvas = document.getElementById(\"header_canvas\");\n        this.context = this.canvas.getContext(\"2d\");\n    }\n    return HeaderCanvas;\n}());\nvar headerCanvas = new HeaderCanvas();\nfunction IntroComponent() {\n    return (react_1.default.createElement(\"div\", { id: \"intro\" },\n        react_1.default.createElement(\"div\", { id: \"header_div\" }, \"\\uBBF8 \\u7F8E .\"),\n        react_1.default.createElement(\"canvas\", { id: \"header_canvas\" })));\n}\nexports.default = IntroComponent;\n\n\n//# sourceURL=webpack:///./client/intro.tsx?");
 
 /***/ }),
 
@@ -118,7 +130,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _nod
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/api.js */ \"./node_modules/css-loader/dist/runtime/api.js\");\n/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);\n// Imports\n\nvar ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});\n// Module\n___CSS_LOADER_EXPORT___.push([module.i, \"\", \"\"]);\n// Exports\n/* harmony default export */ __webpack_exports__[\"default\"] = (___CSS_LOADER_EXPORT___);\n\n\n//# sourceURL=webpack:///./client/style.css?./node_modules/css-loader/dist/cjs.js");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/api.js */ \"./node_modules/css-loader/dist/runtime/api.js\");\n/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);\n// Imports\n\nvar ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});\n// Module\n___CSS_LOADER_EXPORT___.push([module.i, \"body {\\n    width: 100vw;\\n    min-height: 100vh;\\n    padding: 0;\\n    margin: 0;\\n}\\n\\n#main, #root {\\n    width: 100%;\\n    height: 100%;\\n}\\n\\n#intro {\\n    position: relative;\\n    background-color: #fcf9f1;\\n    width: 100%;\\n    height: 100vh;\\n    height: calc(var(--vh, 1vh) * 100);\\n}\\n\\n#header_div {\\n    position: absolute;\\n    top: 50%;\\n    left: 0;\\n    margin-left: 3vw;\\n    font-family: 'Noto Serif KR', serif;\\n    font-weight: 500;\\n    font-size: 5vh;\\n}\\n\\n#header_canvas {\\n    position: absolute;\\n    top: 0;\\n    left: 0;\\n    width: 100%;\\n    height: 100%;\\n}\", \"\"]);\n// Exports\n/* harmony default export */ __webpack_exports__[\"default\"] = (___CSS_LOADER_EXPORT___);\n\n\n//# sourceURL=webpack:///./client/style.css?./node_modules/css-loader/dist/cjs.js");
 
 /***/ }),
 
