@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
-import IntroComponent from "./intro";
+import Updatable from "./canvas-component/updatable";
+import IntroComponent, {headerCanvas} from "./intro";
 
 import "./style.css";
-
 
 // set up dynamic vh for mobile viewports
 window.addEventListener('resize', () => {
@@ -11,11 +11,29 @@ window.addEventListener('resize', () => {
     document.documentElement.style.setProperty('--vh', `${vh}px`);
 });
 
+// setup animation loop
+const updatable: Array<Updatable> = [headerCanvas];
+function Update() {
+    updatable.forEach(e => {
+        // TODO fix null bug
+        if(e!=null) {
+            e.update();
+        }
+    });
+
+    window.requestAnimationFrame(Update);
+}
 
 type MainProps = {
 }
 
 function MainComponent(props: MainProps) {
+
+    useEffect(()=>{
+        // start animation when all componenets are loaded
+        window.requestAnimationFrame(Update);
+    });
+
     return (
         <div id="main">
             <IntroComponent></IntroComponent>

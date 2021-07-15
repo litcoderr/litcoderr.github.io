@@ -1,8 +1,13 @@
 body {
     width: 100vw;
     min-height: 100vh;
+    min-height: calc(var(--vh, 1vh) * 100);
     padding: 0;
     margin: 0;
+}
+
+.highlight_lowkey {
+    color: #1f4217;
 }
 
 #main, #root {
@@ -25,7 +30,7 @@ body {
     margin-left: 3vw;
     font-family: 'Noto Serif KR', serif;
     font-weight: 500;
-    font-size: 5vh;
+    font-size: 40px;
 }
 
 #header_canvas {
