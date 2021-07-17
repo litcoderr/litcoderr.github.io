@@ -12,11 +12,13 @@ class HeaderCanvas implements Updatable{
 
     constructor() {
         this.canvas = document.getElementById("header_canvas") as HTMLCanvasElement;
+        this.canvas.width = this.canvas.offsetWidth;
+        this.canvas.height = this.canvas.offsetHeight;
         this.context = this.canvas.getContext("2d");
         this.updateBuffer = [];
 
         // add drawlcle
-        this.updateBuffer.push(new Drawlcle(this.context, 20, 20, 100, 100));
+        this.updateBuffer.push(new Drawlcle(this.canvas, this.context, 50, 50, 50));
     }
 
     update = () => {
