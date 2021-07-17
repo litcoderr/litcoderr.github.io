@@ -48,7 +48,8 @@ class Drawlcle implements Updatable{
                             d_theta: number,
                             radius: number) => {
         this.context.moveTo(radius * Math.cos(theta) + this.x_center, radius * Math.sin(theta) + this.y_center);
-        this.context.lineTo(radius * Math.cos(theta + d_theta) + this.x_center, radius * Math.sin(theta + d_theta) + this.y_center);
+        // TODO draw arc instead of line
+        this.context.arc(this.x_center, this.y_center, radius, theta, theta+d_theta);
         this.context.stroke();
     }
 
@@ -58,9 +59,13 @@ class Drawlcle implements Updatable{
 
         if(this.cur_rad - this.init_rad < Math.PI * 4.5) {
             if(delta_time >= this.interval) {
-                for(let i=0; i<20; i++) {
+                let delta_rad = this.cur_rad - this.init_rad;
+                //TODO change merge speed
+                let speed_phase = delta_rad / (9);
+                let speed_factor = 40;
+                let speed = speed_factor * Math.cos(speed_phase);
+                for(let i=0; i<speed; i++) {
                     // TODO change thickness
-                    let delta_rad = this.cur_rad - this.init_rad;
                     if(delta_rad < Math.PI * (3/2)) {
                         let rad_offset = delta_rad - Math.PI/2
                         this.context.lineWidth = this.thickness * (1+Math.sin(rad_offset));
