@@ -10,8 +10,11 @@ class Drawlcle implements Updatable{
     thickness: number;
     x_center: number;
     y_center: number;
+    init_rad: number;
     cur_rad: number;
     d_rad: number;
+    radius_rad: number;
+    d_radius_rad: number;
 
     last_updated: number;
     interval: number;
@@ -24,51 +27,55 @@ class Drawlcle implements Updatable{
         this.canvas = canvas;
         this.context = context;
         this.avg_radius = avg_radius;
-        this.thickness = 5;
+        this.thickness = 3;
         this.x_center = x_center;
         this.y_center = y_center;
-        this.cur_rad = this.to_rad(0);
+        this.init_rad = Math.PI * Math.random();
+        this.cur_rad = this.init_rad;
         this.d_rad = this.to_rad(1);
+        this.radius_rad = Math.PI * Math.random();
+        this.d_radius_rad = 0.01;
         
         this.last_updated = 0;
         this.interval = 1 / 60;
 
-
-        this.draw_circular_sector(this.to_rad(10), this.to_rad(30), 1000, 5);
+        this.context.lineWidth = this.thickness;
+        this.context.strokeStyle = "#e32227";
+        this.context.beginPath();
     }
 
     draw_circular_sector = (theta: number,
                             d_theta: number,
-                            radius: number,
-                            d_radius: number) => {
-        let radius_short = radius - d_radius;
-
-        this.context.beginPath();
-        this.context.arc(this.x_center,
-                         this.y_center,
-                         radius,
-                         theta,
-                         theta+d_theta);
-        this.context.lineTo(radius_short * Math.cos(theta+d_theta) + this.x_center, radius_short * Math.sin(theta+d_theta) + this.y_center);
-        this.context.arc(this.x_center,
-                         this.y_center,
-                         radius_short,
-                         theta+d_theta,
-                         theta,
-                         true);
-        this.context.lineTo(radius * Math.cos(theta) + this.x_center, radius * Math.sin(theta) + this.y_center);
-        this.context.fill();
+                            radius: number) => {
+        this.context.moveTo(radius * Math.cos(theta) + this.x_center, radius * Math.sin(theta) + this.y_center);
+        this.context.lineTo(radius * Math.cos(theta + d_theta) + this.x_center, radius * Math.sin(theta + d_theta) + this.y_center);
+        this.context.stroke();
     }
 
     update = () => {
         let cur_time = new Date().getTime() / 1000;
         let delta_time = cur_time - this.last_updated;
 
-        if(delta_time >= this.interval) {
-            //this.draw_circular_sector(this.cur_rad, this.d_rad, this.avg_radius, this.thickness);
-            this.cur_rad += this.d_rad;
+        if(this.cur_rad - this.init_rad < Math.PI * 4.5) {
+            if(delta_time >= this.interval) {
+                for(let i=0; i<20; i++) {
+                    // TODO change thickness
+                    let delta_rad = this.cur_rad - this.init_rad;
+                    if(delta_rad < Math.PI * (3/2)) {
+                        let rad_offset = delta_rad - Math.PI/2
+                        this.context.lineWidth = this.thickness * (1+Math.sin(rad_offset));
+                    }else {
+                        this.context.lineWidth = this.thickness;
+                    }
+                    let cur_radius = this.avg_radius * (1+0.05 * Math.sin(this.radius_rad));
 
-            this.last_updated = cur_time;
+                    this.draw_circular_sector(this.cur_rad, this.d_rad, cur_radius);
+                    this.cur_rad += this.d_rad;
+                    this.radius_rad += this.d_radius_rad;
+                }
+
+                this.last_updated = cur_time;
+            }
         }
     }
 

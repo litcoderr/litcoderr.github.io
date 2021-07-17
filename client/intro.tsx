@@ -12,13 +12,14 @@ class HeaderCanvas implements Updatable{
 
     constructor() {
         this.canvas = document.getElementById("header_canvas") as HTMLCanvasElement;
-        this.canvas.width = this.canvas.offsetWidth;
-        this.canvas.height = this.canvas.offsetHeight;
+        this.canvas.width = window.innerWidth;
+        this.canvas.height = window.innerHeight;
         this.context = this.canvas.getContext("2d");
+        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.updateBuffer = [];
 
         // add drawlcle
-        this.updateBuffer.push(new Drawlcle(this.canvas, this.context, 50, 50, 50));
+        this.updateBuffer.push(new Drawlcle(this.canvas, this.context, Math.min(this.canvas.width, this.canvas.height) / 3.5, this.canvas.width/2, this.canvas.height/2));
     }
 
     update = () => {
@@ -30,6 +31,9 @@ class HeaderCanvas implements Updatable{
 
 // TODO update headerCanvas from main loop
 let headerCanvas: HeaderCanvas = null;
+window.addEventListener('resize', ()=>{
+    headerCanvas = new HeaderCanvas();
+});
 
 function IntroComponent() {
 
@@ -39,10 +43,10 @@ function IntroComponent() {
 
     return (
         <div id="intro">
+            <canvas id="header_canvas"></canvas>
             <div id="header_div">
                 미 美 <span className="highlight_lowkey">.</span>
             </div>
-            <canvas id="header_canvas"></canvas>
         </div>
     )
 }

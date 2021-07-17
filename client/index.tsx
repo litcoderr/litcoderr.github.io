@@ -12,7 +12,7 @@ window.addEventListener('resize', () => {
 });
 
 // setup animation loop
-const updatable: Array<Updatable> = [];
+let updatable: Array<Updatable> = [];
 function Update() {
     updatable.forEach(e => {
         if(e!=null) {
@@ -31,6 +31,9 @@ function MainComponent(props: MainProps) {
     useEffect(()=>{
         // start animation when all componenets are loaded
         updatable.push(headerCanvas);
+        window.addEventListener('resize', ()=>{
+            updatable = [headerCanvas];
+        });
         window.requestAnimationFrame(Update);
     });
 
