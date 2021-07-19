@@ -8,6 +8,12 @@ body {
     font-size: 15px;
     font-weight: 300;
     color: black;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+body::-webkit-scrollbar {
+    display: none;
 }
 
 a {
@@ -24,8 +30,8 @@ a:hover {
     max-width: 600px;
     margin-left: auto;
     margin-right: auto;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
 }
 
 #headerFlex {
@@ -66,15 +72,38 @@ a:hover {
 }
 
 #prof {
+    margin-left: auto;
+    margin-right: auto;
 }
 
 #profimg {
     width: 150px;
-    margin-right: 20px;
     border-radius: 50%;
     margin-bottom: 20px;
 }
 
 #headerdiv {
     margin-bottom: 20px;
+}
+
+.divider {
+    width: 95%;
+    height: 1px;
+    background-color: rgb(224, 224, 224);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.paragraph {
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+
+.paragraphTitle {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.paragraphContent {
+    margin-top: 5px;
 }
