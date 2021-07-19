@@ -28,14 +28,14 @@ a:hover {
     padding-right: 10px;
 }
 
+#headerFlex {
+    margin-top: 20px;
+}
+
 .flexContainer {
     display: flex;
     flex-flow: row wrap;
     justify-content: space-between;
-}
-
-#header {
-    margin-top: 20px;
 }
 
 .header {
@@ -63,4 +63,18 @@ a:hover {
 
 .contactComponent {
     margin-right: 5px;
+}
+
+#prof {
+}
+
+#profimg {
+    width: 150px;
+    margin-right: 20px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+}
+
+#headerdiv {
+    margin-bottom: 20px;
 }

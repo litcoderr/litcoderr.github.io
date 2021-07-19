@@ -18,7 +18,7 @@ function MainComponent(props: MainProps) {
 
     return (
         <div id="main">
-            <div className="flexContainer">
+            <div className="flexContainer" id="headerFlex">
                 <Header></Header>
                 <ProfilePic></ProfilePic>
             </div>

@@ -13,7 +13,7 @@ const contacts: {[key: string]: string} = {
 
 function Header() {
     return (
-        <div id="header">
+        <div id="headerdiv">
             <span className="header">James Chee</span>
             <span id="sub" className="sub">지영채</span>
             <CurrentStatus></CurrentStatus>
@@ -25,7 +25,7 @@ function Header() {
 function CurrentStatus() {
     return (
         <div id="currentStatus">
-            Undergraduate Student @<br></br>
+            Undergraduate Student <b>@</b><br></br>
             <a href="https://www.hanyang.ac.kr/web/eng">Hanyang Tech</a> '24<br></br>
             <a href="http://cs.hanyang.ac.kr/eng">Computer Science and Engineering</a>
         </div>
