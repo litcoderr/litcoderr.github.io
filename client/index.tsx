@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
 import Header from "./components/header";
+import ProfilePic from "./components/profilepic";
 
 import "./style.css";
 
@@ -17,7 +18,10 @@ function MainComponent(props: MainProps) {
 
     return (
         <div id="main">
-            <Header></Header>
+            <div className="flexContainer">
+                <Header></Header>
+                <ProfilePic></ProfilePic>
+            </div>
         </div>
     )
 }

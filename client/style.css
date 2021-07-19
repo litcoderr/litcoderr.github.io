@@ -4,6 +4,20 @@ body {
     min-height: calc(var(--vh, 1vh) * 100);
     padding: 0;
     margin: 0;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 15px;
+    font-weight: 300;
+    color: black;
+}
+
+a {
+    color: #1927a8;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #09157c;
+    text-decoration: underline;
 }
 
 #main {
@@ -14,12 +28,39 @@ body {
     padding-right: 10px;
 }
 
+.flexContainer {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+}
+
 #header {
-    margin-top: 50px;
+    margin-top: 20px;
 }
 
 .header {
     font-size: 30px;
     font-weight: 800;
-    font-family: 'Noto Sans KR', sans-serif;
+}
+
+#sub {
+    margin-left: 10px;
+}
+
+.sub {
+    font-size: 20px;
+    font-weight: 400;
+    color: darkgray;
+}
+
+#currentStatus {
+    margin-top: 10px;
+}
+
+#contacts {
+    margin-top: 10px;
+}
+
+.contactComponent {
+    margin-right: 5px;
 }
