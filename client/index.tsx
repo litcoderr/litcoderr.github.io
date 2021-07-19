@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
-import Updatable from "./canvas-component/updatable";
-import IntroComponent, {headerCanvas} from "./intro";
+import Header from "./components/header";
 
 import "./style.css";
 
@@ -11,35 +10,14 @@ window.addEventListener('resize', () => {
     document.documentElement.style.setProperty('--vh', `${vh}px`);
 });
 
-// setup animation loop
-let updatable: Array<Updatable> = [];
-function Update() {
-    updatable.forEach(e => {
-        if(e!=null) {
-            e.update();
-        }
-    });
-
-    window.requestAnimationFrame(Update);
-}
-
 type MainProps = {
 }
 
 function MainComponent(props: MainProps) {
 
-    useEffect(()=>{
-        // start animation when all componenets are loaded
-        updatable.push(headerCanvas);
-        window.addEventListener('resize', ()=>{
-            updatable = [headerCanvas];
-        });
-        window.requestAnimationFrame(Update);
-    });
-
     return (
         <div id="main">
-            <IntroComponent></IntroComponent>
+            <Header></Header>
         </div>
     )
 }
