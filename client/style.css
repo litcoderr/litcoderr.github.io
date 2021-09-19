@@ -86,6 +86,14 @@ a:hover {
     margin-bottom: 20px;
 }
 
+#post_viewer_main {
+    margin-top: 20px;
+}
+
+#post_viewer_list_container {
+    margin-top: 5px;
+}
+
 .divider {
     width: 95%;
     height: 1px;
@@ -106,4 +114,12 @@ a:hover {
 
 .paragraphContent {
     margin-top: 5px;
+}
+
+.postHeader {
+    margin-top: 40px;
+}
+
+.postContent {
+    margin-top: 30px;
 }
