@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter, Link, Route } from "react-router-dom";
+import { HashRouter, Link, Route } from "react-router-dom";
 import Divider from "./components/divider";
 import Header from "./components/header";
 import Paragraph from "./components/paragraph";
@@ -18,7 +18,7 @@ window.addEventListener('resize', () => {
 
 function App() {
     return (
-        <BrowserRouter>
+        <HashRouter>
             <Route exact path="/" component={MainComponent}></Route>
             {
                 post_urls.map(elem => {
@@ -27,7 +27,7 @@ function App() {
                     )
                 })
             }
-        </BrowserRouter>
+        </HashRouter>
     )
 }
 
