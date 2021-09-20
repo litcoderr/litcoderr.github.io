@@ -35,6 +35,7 @@ type MainProps = {
 }
 
 function MainComponent(props: MainProps) {
+    document.title = "bio";
     return (
         <div id="main">
             <div className="flexContainer" id="headerFlex">

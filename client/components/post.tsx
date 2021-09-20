@@ -17,9 +17,7 @@ function PostPage(props: PostProps) {
                     {props.title}
                 </div>
             </div>
-            <div className="postContent">
-                <props.content></props.content>
-            </div>
+            <props.content></props.content>
         </div>
     )
 }
