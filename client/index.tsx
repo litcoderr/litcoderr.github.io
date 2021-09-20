@@ -5,8 +5,8 @@ import Divider from "./components/divider";
 import Header from "./components/header";
 import Paragraph from "./components/paragraph";
 import ProfilePic from "./components/profilepic";
-import IntroToNft from "./posts/intro_to_nft";
 import PostViewer, {post_urls} from "./posts/viewer";
+import DemoViewer, {demo_urls} from "./demo/demos";
 
 import "./style.css";
 
@@ -23,7 +23,14 @@ function App() {
             {
                 post_urls.map(elem => {
                     return(
-                        <Route path={elem.url} component={elem.comp}></Route>
+                        <Route path={elem.url} component={elem.comp} key={elem.url}></Route>
+                    )
+                })
+            }
+            {
+                demo_urls.map(elem => {
+                    return(
+                        <Route path={elem.url} component={elem.comp} key={elem.url}></Route>
                     )
                 })
             }
@@ -52,6 +59,8 @@ function MainComponent(props: MainProps) {
                     The ultimate goal is to contribute to a project which can potentially make a positive impact on the society.
                     I am always available for good insights and learning materials so reach out to me anytime via email and facebook dms."
             ></Paragraph>
+            <Divider></Divider>
+            <DemoViewer></DemoViewer>
             <Divider></Divider>
             <PostViewer></PostViewer>
         </div>

@@ -1,31 +1,31 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import IntroToNft from './intro_to_nft';
+import Hangul from "./hangul/hangul";
+import {Link} from "react-router-dom";
 
-const post_urls = [
+const demo_urls = [
     {
-        title: "Intro to Non-Fungible Tokens",
-        url: "/posts/intro_to_nft",
-        comp: IntroToNft
+        title: "Feel the Rythm of Hangul",
+        url: "/demos/rythm_of_hangul",
+        comp: Hangul
     }
-] 
+];
 
-function PostViewer() {
+function DemoViewer() {
     return (
         <div id="post_viewer_main">
             <div className="paragraphTitle">
-                Posts
+                Demos
             </div>
             <div id="post_viewer_list_container">
             {
-                post_urls.map(elem=>{
+                demo_urls.map(elem=>{
                     return (<Link to={elem.url} key={"link_"+elem.url}>{elem.title}</Link>)
                 })
             }
             </div>
         </div>
-    )
+    );
 }
 
-export default PostViewer;
-export {post_urls};
+export default DemoViewer;
+export {demo_urls};

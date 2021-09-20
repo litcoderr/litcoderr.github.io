@@ -88,11 +88,17 @@ a:hover {
 }
 
 #post_viewer_main {
-    margin-top: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
 
 #post_viewer_list_container {
     margin-top: 5px;
+}
+
+#hangul_canvas {
+    width: 100vw;
+    height: 100vh;
 }
 
 .divider {
