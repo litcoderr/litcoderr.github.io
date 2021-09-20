@@ -71,7 +71,7 @@ function Content() {
                     Contract 에 연결 할 수 있다. [<a href="https://github.com/litcoderr/NFT_DAPP/blob/main/client/nft/api.tsx#L46">코드</a>] <br/>
                     <img className="postImage" src="https://raw.githubusercontent.com/litcoderr/litcoderr.github.io/master/client/src/nft_1_connect_to_account.PNG"></img> <br/><br/>
 
-                    마찬가지고, Web3 를 이용해 작성한 Smart Contract 의 메서드 들을 접근 할 수 있고, 작성한 claim 이라는 메서드를 통해
+                    마찬가지로, Web3 를 이용해 작성한 Smart Contract 의 메서드 들을 접근 할 수 있고, 작성한 claim 이라는 메서드를 통해
                     NFT 를 구매할 수 있다. 본인은 contract 에 명시되어 있는 NFT 가 필요로 하는 meta-data 를 HTML Form 형식으로 받고, claim 버튼을 누르면
                     metamask 를 통해 결재를 할 수 있도록 했다. [<a href="https://github.com/litcoderr/NFT_DAPP/blob/main/client/nft/api.tsx#L64">코드</a>] <br/>
                     <img className="postImage" src="https://raw.githubusercontent.com/litcoderr/litcoderr.github.io/master/client/src/nft_3_claim.PNG"></img> <br/><br/>
