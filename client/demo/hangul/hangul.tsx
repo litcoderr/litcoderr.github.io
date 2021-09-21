@@ -1,3 +1,4 @@
+import { SSL_OP_EPHEMERAL_RSA } from 'constants';
 import { createWriteStream } from 'fs';
 import React, { useEffect } from 'react';
 import logger from '../../util/logger';
@@ -11,68 +12,288 @@ class HangulSampler {
      * (0,0,0), (0,0,1), (0,0,2), (0,0,3), (1,0,0) ... order
      * rgb -> x(width) -> y(height) incremental order
      */
-    imData: ImageData;
+    width: number;
+    height: number;
+    data: boolean[];
 
     constructor(context: CanvasRenderingContext2D) {
         this.context = context;
+        this.width = 100;
+        this.height = 100;
     }
 
-    sample(c: string) {
+    sample = async (c: string) => {
         if(this.c !== c) {
             this.c = c;
+            this.data = [];
 
-            this.context.clearRect(0, 0, 100, 100);
-            this.context.fillStyle = 'black';
-            this.context.font = '30px Verdana';
-            this.context.fillText(c, 0, 30);
-            this.imData = this.context.getImageData(0, 0, 100, 100);
-            this.context.clearRect(0, 0, 100, 100);
+            this.context.clearRect(0, 0, this.width, this.height);
+
+            let imData: ImageData;
+            for(let i=0; i<100;i++) { // to wait for font loading
+                this.context.fillStyle = 'black';
+                this.context.font = '30px Song Myung';
+                this.context.fillText(c, 0, 30);
+                imData = this.context.getImageData(0, 0, this.width, this.height);
+                this.context.clearRect(0, 0, this.width, this.height);
+            }
+
+            // sample from imData
+            for(let i=0;i<this.width*this.height;i++) {
+                let is_black = false;
+                for(let rgb_i=0;rgb_i<4;rgb_i++) {
+                    if(imData.data[4*i + rgb_i]!=0) {
+                        is_black = true;
+                        break;
+                    }
+                }
+                this.data.push(is_black);
+            }
+        }
+    }
+
+    /**
+     * 
+     * @param c character to get coordinate of
+     * @returns coordinate of the character ranging from 0 and 1
+     */
+    get_coord = (c: string):{arr: {x: number, y: number}[], width:number, height:number} => {
+        this.sample(c);
+
+        let coord:{arr: {x: number, y: number}[], width:number, height:number} = {
+            arr: [],
+            width: 0,
+            height: 0
+        }
+        let max_x = 0;
+        let max_y = 0;
+        let min_x = 987654321;
+        let min_y = 987654321;
+        for(let i=0;i<this.data.length;i++) {
+            if(this.data[i]) { // is black
+                let x = i % this.width;
+                let y = Math.floor(i / this.width);
+
+                max_x = Math.max(max_x, x);
+                max_y = Math.max(max_y, y);
+                min_x = Math.min(min_x, x);
+                min_y = Math.min(min_y, y);
+
+                coord.arr.push({
+                    x: x,
+                    y: y
+                });
+            }
+        }
+
+        let max_len = Math.max(max_x-min_x, max_y-min_y);
+        coord.width = (max_x-min_x) / max_len;
+        coord.height = (max_y-min_y) / max_len;
+
+        // normalize
+        for(let i=0;i<coord.arr.length;i++) {
+            coord.arr[i].x -= min_x;
+            coord.arr[i].y -= min_y;
+
+            coord.arr[i].x /= max_len;
+            coord.arr[i].y /= max_len;
+        }
+
+        return coord;
+    }
+}
+
+abstract class Updater {
+    p: Particle;
+    last_updated: Date;
+
+    constructor(p: Particle) {
+        this.p = p;
+        this.last_updated = new Date();
+    }
+
+    abstract update(): any;
+}
+
+class Blinker extends Updater {
+    interval: number;
+
+    constructor(p: Particle) {
+        super(p);
+        this.interval = 500;
+    }
+
+    update = () => {
+        let cur_time = new Date();
+        let delta = cur_time.getTime() - this.last_updated.getTime();
+
+        if(delta >= this.interval) {
+            this.last_updated = cur_time;
+
+            this.p.shuffle_color();
         }
     }
 }
 
-class Animator {
-    canvas: HTMLCanvasElement;
+class Particle {
+    context: CanvasRenderingContext2D;
+    x: number;
+    y: number;
+    radius: number;
+    color_choices: string[];
+    color: string;
+    subscribed: Updater[];
+
+    constructor(context: CanvasRenderingContext2D, x: number, y: number, radius: number) {
+        this.context = context;
+        this.x = x;
+        this.y = y;
+        this.radius = radius;
+        this.color_choices = [
+            "#3C4760",
+            "#D5B150",
+            "#B33637",
+            "#1C7A77"
+        ];
+        this.shuffle_color();
+        this.subscribed = [new Blinker(this)];
+    }
+
+    shuffle_color = () => {
+        this.color = this.color_choices[Math.floor(Math.random()*this.color_choices.length)];
+    }
+
+    draw = () => {
+        // update subscribed updaters
+        this.subscribed.forEach((updater)=>{
+            updater.update();
+        });
+
+        // draw
+        this.context.strokeStyle = this.color;
+        this.context.fillStyle = this.color;
+
+        this.context.beginPath();
+        this.context.moveTo(this.x + this.radius, this.y);
+        this.context.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        this.context.stroke();
+        this.context.fill();
+    }
+}
+
+class ParticleAnimator {
     context: CanvasRenderingContext2D;
     sampler: HangulSampler;
+    c: string;
+    parts: Particle[];
+
+    constructor(context: CanvasRenderingContext2D) {
+        this.context = context;
+        this.sampler = new HangulSampler(context);
+        this.parts = [];
+    }
+
+    draw_hangul = (width: number, height: number, c: string) => {
+        // Update particles
+        if(this.c!==c) {
+            this.c = c;
+            this.parts = [];
+            const coord = this.sampler.get_coord(this.c);
+
+            const mu = Math.min(width, height) * 0.5;
+            const radius = (mu / devicePixelRatio) / 100;
+            let x_len = mu * coord.width;
+            let y_len = mu * coord.height;
+
+            coord.arr.forEach((c)=>{
+                let center_x = mu * c.x + ((width/2)-(x_len/2));
+                let center_y = mu * c.y + ((height/2)-(y_len/2));
+                this.parts.push(new Particle(this.context, center_x, center_y, radius));
+            });
+        }
+
+        // draw particles
+        this.parts.forEach((p)=>{
+            p.draw();
+        })
+    }
+}
+
+class Animator {
+    width: number;
+    height: number;
+    canvas: HTMLCanvasElement;
+    context: CanvasRenderingContext2D;
+
+    particle: ParticleAnimator;
+    c: string;
 
     constructor() {
         logger.info("Initializing Animator");
 
         this.canvas = document.getElementById("hangul_canvas") as HTMLCanvasElement;
         this.context = this.canvas.getContext("2d");
-        this.sampler = new HangulSampler(this.context);
+        this.particle = new ParticleAnimator(this.context);
         this.resize();
 
+        this.c = "한";
+
         window.addEventListener('resize', this.resize);
+        window.addEventListener('touchstart', (e)=>{
+            if(e.touches.length === 2) {
+                e.preventDefault();
+            }
+        }, false)
 
         logger.info("Starting Animation");
         window.requestAnimationFrame(this.draw);
     }
 
     resize = () => {
-        this.canvas.width = window.innerWidth;
-        this.canvas.height = window.innerHeight;
+        this.canvas.width = window.innerWidth * devicePixelRatio;
+        this.canvas.height = window.innerHeight * devicePixelRatio * 0.8;
+        this.context.scale(devicePixelRatio, devicePixelRatio);
+        this.canvas.style.width = window.innerWidth + "px";
+        this.canvas.style.height = window.innerHeight * 0.9 + "px";
+        this.width = window.innerWidth;
+        this.height = window.innerHeight * 0.8;
     }
 
     draw = () => {
-        this.sampler.sample('한');
+        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-        // TODO start drawing particles using sampled character
+        this.particle.draw_hangul(this.width, this.height, this.c);
 
         window.requestAnimationFrame(this.draw);
     }
+
+    setChar = (c: string) => {
+        this.c = c;
+    }
 }
+
+let animator: Animator;
 
 function Hangul() {
     document.title = "Rythm of Hangul";
 
+    /**
+     * Feel the Rythm of Korea 음악을 particle 들이 바닥에 깔려 스펙토그램을 그리다가,
+     * 글자를 인식하면, 글자 모양을 만든 후, 스펙토그램을 이루며 animate 한다
+     */
+
     useEffect(()=>{
-        const animator = new Animator();
+        animator = new Animator();
     });
 
     return (
         <div>
+            <input type="text" id="input_char"></input>
+            <button type="button" id="hangul_submit" onClick={()=>{
+                const input = document.getElementById("input_char") as HTMLInputElement;
+                const char = input.value.charAt(0);
+                animator.setChar(char);
+            }}>render</button>
             <canvas id="hangul_canvas"></canvas>
         </div>
     )
