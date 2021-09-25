@@ -236,7 +236,7 @@ class Animator {
         this.particle = new ParticleAnimator(this.context);
         this.resize();
 
-        this.c = "한";
+        this.c = "덕";
 
         window.addEventListener('resize', this.resize);
 
@@ -400,11 +400,22 @@ function Hangul() {
 
     return (
         <div id="hangul_div">
-            {muted?
-            <div id="unmute_info">
-                Touch to Play
+            <div id="hangul_input">
+                <form id="hangul_form">
+                    <input type="text" name="hangul" id="hangul_field" placeholder="Type a Hangul character"></input>
+                    <button type="button" id="hangul_button" onClick={()=>{
+                        const field = document.getElementById("hangul_field") as HTMLInputElement;
+                        const input_char = field.value.charAt(0);
+                        animator.setChar(input_char);
+                        field.value = "";
+                    }}>Render</button>
+                </form>
+                {muted?
+                <div id="unmute_info">
+                    Touch to Play
+                </div>
+                :<></>}
             </div>
-            :<></>}
             <canvas id="hangul_canvas"></canvas>
             <div id="player_overlay"></div>
             <div id="player"></div>

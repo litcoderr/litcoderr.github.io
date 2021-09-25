@@ -119,15 +119,56 @@ a:hover {
     z-index: -2;
 }
 
-#unmute_info {
-    position: fixed;
-    top: 10vh;
-    left: 50%;
-    padding: 2px;
-    transform: translateX(-50%);
+#hangul_input {
+    position: absolute;
+    width: 100%;
+    top: 5vh;
     z-index : 5;
+    text-align: center;
+}
+
+#hangul_form {
+    position: relative;
+    font-size: 20px;
+}
+
+#hangul_field {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-left: 6px;
+    padding-right: 6px;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+    border-width: 1px;
+    border-right-width: 0px;
+}
+
+#hangul_field:focus {
+    outline: none;
+}
+
+#hangul_button {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-width: 1px;
+    border-left-width: 0px;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+    background-color: #A8312F;
+    border-color: #A8312F;
+    color: #f8f8f8;
+}
+
+#unmute_info {
+    display: inline-block;
+    text-align: center;
+    margin:0 auto;
+    padding: 2px;
+    margin-top: 10px;
     color:rgb(224, 224, 224);
-    background-color: rgb(14, 13, 73);
+    background-color: #A8312F;
 }
 
 .divider {
