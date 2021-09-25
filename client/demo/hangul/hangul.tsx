@@ -277,10 +277,26 @@ declare global {
     }
 }
 
+class MusicPlayer {
+    link:string;
+    audio: HTMLAudioElement;
+
+    constructor() {
+        this.link = "https://raw.githubusercontent.com/litcoderr/litcoderr.github.io/master/client/src/feel_the_rythm_of_korea.mp3";
+        this.audio = new Audio(this.link);
+    }
+
+    play() {
+        console.log(this.audio);
+        this.audio.play();
+    }
+}
+
 class Player {
     player: any;
     width: number;
     height: number;
+    muted: boolean;
 
     constructor() {
         // set dimension
@@ -291,6 +307,8 @@ class Player {
             this.height = window.innerHeight;
             this.width = 2* window.innerHeight;
         }
+
+        this.muted = true;
 
         if(!window.YT) {
             const tag = document.createElement('script');
@@ -345,12 +363,25 @@ class Player {
     onReady = (e: any) => {
         logger.info("youtube player is ready");
         this.player.mute();
+
+        document.getElementById("hangul_canvas").addEventListener("click", this.trigger_mute)
+
         this.player.playVideo();
     }
 
     onChange = (e: any) => {
         if(e.data == 0) {
             this.player.playVideo();
+        }
+    }
+
+    trigger_mute = () => {
+        if(this.muted) {
+            this.muted = false;
+            this.player.unMute();
+        }else {
+            this.muted = true;
+            this.player.mute();
         }
     }
 }
