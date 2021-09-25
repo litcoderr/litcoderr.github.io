@@ -386,7 +386,9 @@ let player: Player;
 let submit_hangul = () => {
     const field = document.getElementById("hangul_field") as HTMLInputElement;
     const input_char = field.value.charAt(0);
-    animator.setChar(input_char);
+    if(input_char !== "") {
+        animator.setChar(input_char);
+    }
     field.value = "";
 }
 
