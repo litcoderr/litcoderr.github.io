@@ -326,6 +326,7 @@ class Player {
                 showinfo: 0,
                 autohid: 1,
                 modestbranding: 0,
+                end: 88,
                 playerVars: {
                     rel: 0
                 }
