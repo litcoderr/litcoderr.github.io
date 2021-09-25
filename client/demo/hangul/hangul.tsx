@@ -383,6 +383,13 @@ class Player {
 let animator: Animator;
 let player: Player;
 
+let submit_hangul = () => {
+    const field = document.getElementById("hangul_field") as HTMLInputElement;
+    const input_char = field.value.charAt(0);
+    animator.setChar(input_char);
+    field.value = "";
+}
+
 function Hangul() {
     document.title = "Rythm of Hangul";
 
@@ -401,13 +408,13 @@ function Hangul() {
     return (
         <div id="hangul_div">
             <div id="hangul_input">
-                <form id="hangul_form">
+                <form id="hangul_form" onSubmit={(e)=>{
+                    e.preventDefault();
+                    submit_hangul();
+                }}>
                     <input type="text" name="hangul" id="hangul_field" placeholder="Type a Hangul character"></input>
                     <button type="button" id="hangul_button" onClick={()=>{
-                        const field = document.getElementById("hangul_field") as HTMLInputElement;
-                        const input_char = field.value.charAt(0);
-                        animator.setChar(input_char);
-                        field.value = "";
+                        submit_hangul();
                     }}>Render</button>
                 </form>
                 {muted?
