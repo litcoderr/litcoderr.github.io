@@ -236,7 +236,7 @@ class Animator {
         this.particle = new ParticleAnimator(this.context);
         this.resize();
 
-        this.c = "덕";
+        this.c = "한";
 
         window.addEventListener('resize', this.resize);
 
