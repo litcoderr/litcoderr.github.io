@@ -5,7 +5,7 @@
       "module": "commonjs",
       "esModuleInterop": true,
       "target": "es5",
-      "jsx": "react"
+      "jsx": "react",
     },
     "exclude": ["./server", "./client/dist", "./bundle.js"]
 }

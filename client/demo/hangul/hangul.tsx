@@ -18,8 +18,8 @@ class HangulSampler {
 
     constructor(context: CanvasRenderingContext2D) {
         this.context = context;
-        this.width = 100;
-        this.height = 100;
+        this.width = 300;
+        this.height = 300;
     }
 
     sample = async (c: string) => {
@@ -30,13 +30,11 @@ class HangulSampler {
             this.context.clearRect(0, 0, this.width, this.height);
 
             let imData: ImageData;
-            for(let i=0; i<100;i++) { // to wait for font loading
-                this.context.fillStyle = 'black';
-                this.context.font = '30px Song Myung';
-                this.context.fillText(c, 0, 30);
-                imData = this.context.getImageData(0, 0, this.width, this.height);
-                this.context.clearRect(0, 0, this.width, this.height);
-            }
+            this.context.fillStyle = 'black';
+            this.context.font = '30px sans-serif';
+            this.context.fillText(c, 0, 30);
+            imData = this.context.getImageData(0, 0, this.width, this.height);
+            this.context.clearRect(0, 0, this.width, this.height);
 
             // sample from imData
             for(let i=0;i<this.width*this.height;i++) {
@@ -156,7 +154,9 @@ class Particle {
             "#1C7A77"
         ];
         this.shuffle_color();
-        this.subscribed = [new Blinker(this)];
+        this.subscribed = [
+            //new Blinker(this)
+        ];
     }
 
     shuffle_color = () => {
@@ -239,11 +239,6 @@ class Animator {
         this.c = "한";
 
         window.addEventListener('resize', this.resize);
-        window.addEventListener('touchstart', (e)=>{
-            if(e.touches.length === 2) {
-                e.preventDefault();
-            }
-        }, false)
 
         logger.info("Starting Animation");
         window.requestAnimationFrame(this.draw);
@@ -251,12 +246,12 @@ class Animator {
 
     resize = () => {
         this.canvas.width = window.innerWidth * devicePixelRatio;
-        this.canvas.height = window.innerHeight * devicePixelRatio * 0.8;
+        this.canvas.height = window.innerHeight * devicePixelRatio;
         this.context.scale(devicePixelRatio, devicePixelRatio);
         this.canvas.style.width = window.innerWidth + "px";
-        this.canvas.style.height = window.innerHeight * 0.9 + "px";
+        this.canvas.style.height = window.innerHeight + "px";
         this.width = window.innerWidth;
-        this.height = window.innerHeight * 0.8;
+        this.height = window.innerHeight;
     }
 
     draw = () => {
@@ -267,12 +262,101 @@ class Animator {
         window.requestAnimationFrame(this.draw);
     }
 
+    /**
+     * Used to set character
+     */
     setChar = (c: string) => {
         this.c = c;
     }
 }
 
+declare global {
+    interface Window {
+        YT: any;
+        onYouTubeIframeAPIReady: any;
+    }
+}
+
+class Player {
+    player: any;
+    width: number;
+    height: number;
+
+    constructor() {
+        // set dimension
+        if(window.innerWidth > 2 * window.innerHeight) { // wider ratio screen
+            this.height = 0.5 * window.innerWidth;
+            this.width = window.innerWidth;
+        }else {
+            this.height = window.innerHeight;
+            this.width = 2* window.innerHeight;
+        }
+
+        if(!window.YT) {
+            const tag = document.createElement('script');
+            tag.src = 'https://www.youtube.com/iframe_api';
+            window.onYouTubeIframeAPIReady = this.loadVid;
+
+            const firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        }else {
+            this.loadVid();
+        }
+    }
+
+    /**
+     * When YT api is ready, this method will load video
+     */
+    loadVid = () => {
+        logger.info("loading video");
+
+        this.player = new window.YT.Player("player", {
+            height: this.height,
+            width: this.width,
+            videoId: '3P1CnWI62Ik',
+            playerVars: {
+                autoplay: 1,
+                playsinline: 1,
+                controls: 0,
+                showinfo: 0,
+                autohid: 1,
+                modestbranding: 0,
+                playerVars: {
+                    rel: 0
+                }
+            },
+            events: {
+                onReady: this.onReady,
+                onStateChange: this.onChange
+            }
+        })
+
+        const c = document.getElementById("player");
+        if(window.innerWidth > 2 * window.innerHeight) {
+            c.style.top = (-1 * Math.floor((this.height - window.innerHeight)/2)).toString() + "px";
+        }else {
+            c.style.left = (-1 * Math.floor((this.width - window.innerWidth)/2)).toString() + "px";
+        }
+    }
+
+    /**
+     * Play vid when ready
+     */
+    onReady = (e: any) => {
+        logger.info("youtube player is ready");
+        this.player.mute();
+        this.player.playVideo();
+    }
+
+    onChange = (e: any) => {
+        if(e.data == 0) {
+            this.player.playVideo();
+        }
+    }
+}
+
 let animator: Animator;
+let player: Player;
 
 function Hangul() {
     document.title = "Rythm of Hangul";
@@ -284,17 +368,13 @@ function Hangul() {
 
     useEffect(()=>{
         animator = new Animator();
+        player = new Player();
     });
 
     return (
-        <div>
-            <input type="text" id="input_char"></input>
-            <button type="button" id="hangul_submit" onClick={()=>{
-                const input = document.getElementById("input_char") as HTMLInputElement;
-                const char = input.value.charAt(0);
-                animator.setChar(char);
-            }}>render</button>
+        <div id="hangul_div">
             <canvas id="hangul_canvas"></canvas>
+            <div id="player"></div>
         </div>
     )
 }
