@@ -97,17 +97,37 @@ a:hover {
 }
 
 #hangul_div {
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: hidden;
 }
 
 #hangul_canvas {
+}
+
+#player_overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    background-color: rgba(0, 5, 46, 0.753);
 }
 
 #player {
     position: fixed;
     top: 0;
     left: 0;
-    z-index: -1;
+    z-index: -2;
+}
+
+#unmute_info {
+    position: fixed;
+    top: 10vh;
+    left: 50%;
+    padding: 2px;
+    transform: translateX(-50%);
+    z-index : 5;
+    color:rgb(224, 224, 224);
+    background-color: rgb(14, 13, 73);
 }
 
 .divider {

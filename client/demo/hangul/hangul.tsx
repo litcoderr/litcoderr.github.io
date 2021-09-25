@@ -1,6 +1,6 @@
 import { SSL_OP_EPHEMERAL_RSA } from 'constants';
 import { createWriteStream } from 'fs';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import logger from '../../util/logger';
 
 class HangulSampler {
@@ -277,28 +277,14 @@ declare global {
     }
 }
 
-class MusicPlayer {
-    link:string;
-    audio: HTMLAudioElement;
-
-    constructor() {
-        this.link = "https://raw.githubusercontent.com/litcoderr/litcoderr.github.io/master/client/src/feel_the_rythm_of_korea.mp3";
-        this.audio = new Audio(this.link);
-    }
-
-    play() {
-        console.log(this.audio);
-        this.audio.play();
-    }
-}
-
 class Player {
     player: any;
     width: number;
     height: number;
     muted: boolean;
+    setMuted: React.Dispatch<React.SetStateAction<boolean>>;
 
-    constructor() {
+    constructor(setMuted: React.Dispatch<React.SetStateAction<boolean>>) {
         // set dimension
         if(window.innerWidth > 2 * window.innerHeight) { // wider ratio screen
             this.height = 0.5 * window.innerWidth;
@@ -309,6 +295,7 @@ class Player {
         }
 
         this.muted = true;
+        this.setMuted = setMuted;
 
         if(!window.YT) {
             const tag = document.createElement('script');
@@ -350,10 +337,15 @@ class Player {
         })
 
         const c = document.getElementById("player");
+        const c_lay = document.getElementById("player_overlay");
+        c_lay.style.height = this.height.toString() + "px";
+        c_lay.style.width = this.width.toString() + "px";
         if(window.innerWidth > 2 * window.innerHeight) {
             c.style.top = (-1 * Math.floor((this.height - window.innerHeight)/2)).toString() + "px";
+            c_lay.style.top = (-1 * Math.floor((this.height - window.innerHeight)/2)).toString() + "px";
         }else {
             c.style.left = (-1 * Math.floor((this.width - window.innerWidth)/2)).toString() + "px";
+            c_lay.style.top = (-1 * Math.floor((this.height - window.innerHeight)/2)).toString() + "px";
         }
     }
 
@@ -383,6 +375,7 @@ class Player {
             this.muted = true;
             this.player.mute();
         }
+        this.setMuted(this.muted);
     }
 }
 
@@ -396,15 +389,23 @@ function Hangul() {
      * Feel the Rythm of Korea 음악을 particle 들이 바닥에 깔려 스펙토그램을 그리다가,
      * 글자를 인식하면, 글자 모양을 만든 후, 스펙토그램을 이루며 animate 한다
      */
-
+    const [muted, setMuted] = useState(true);
     useEffect(()=>{
-        animator = new Animator();
-        player = new Player();
+        if(!animator && !player) {
+            animator = new Animator();
+            player = new Player(setMuted);
+        }
     });
 
     return (
         <div id="hangul_div">
+            {muted?
+            <div id="unmute_info">
+                Touch to Play
+            </div>
+            :<></>}
             <canvas id="hangul_canvas"></canvas>
+            <div id="player_overlay"></div>
             <div id="player"></div>
         </div>
     )
