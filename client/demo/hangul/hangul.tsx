@@ -2,6 +2,7 @@ import { SSL_OP_EPHEMERAL_RSA } from 'constants';
 import { createWriteStream } from 'fs';
 import React, { useEffect, useState } from 'react';
 import logger from '../../util/logger';
+import meta from './meta.json';
 
 class HangulSampler {
     context: CanvasRenderingContext2D;
@@ -391,6 +392,8 @@ let submit_hangul = () => {
     }
     field.value = "";
 }
+
+console.log(meta);
 
 function Hangul() {
     document.title = "Rythm of Hangul";

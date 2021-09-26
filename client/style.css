@@ -139,6 +139,8 @@ a:hover {
     padding-right: 6px;
     border-top-left-radius: 6px;
     border-bottom-left-radius: 6px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
     border-width: 1px;
     border-right-width: 0px;
 }
