@@ -136,8 +136,10 @@ class Blinker extends Updater {
 
 class Particle {
     context: CanvasRenderingContext2D;
-    x: number;
-    y: number;
+    origin_x: number;
+    origin_y: number;
+    current_x: number;
+    current_y: number;
     radius: number;
     color_choices: string[];
     color: string;
@@ -145,8 +147,8 @@ class Particle {
 
     constructor(context: CanvasRenderingContext2D, x: number, y: number, radius: number) {
         this.context = context;
-        this.x = x;
-        this.y = y;
+        this.current_x = x;
+        this.current_y = y;
         this.radius = radius;
         this.color_choices = [
             "#3C4760",
@@ -175,8 +177,8 @@ class Particle {
         this.context.fillStyle = this.color;
 
         this.context.beginPath();
-        this.context.moveTo(this.x + this.radius, this.y);
-        this.context.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        this.context.moveTo(this.current_x + this.radius, this.current_y);
+        this.context.arc(this.current_x, this.current_y, this.radius, 0, Math.PI * 2);
         this.context.stroke();
         this.context.fill();
     }
@@ -213,10 +215,18 @@ class ParticleAnimator {
             });
         }
 
-        // draw particles
+        // draw initial particles
         this.parts.forEach((p)=>{
             p.draw();
         })
+
+        // draw rgb-splitter effect
+        //this.context.clearRect(0, 0, width, height);
+        /*
+        this.parts.forEach((p)=>{
+            p.effects.rgbSplitter.draw();
+        })
+        */
     }
 }
 
@@ -392,8 +402,6 @@ let submit_hangul = () => {
     }
     field.value = "";
 }
-
-console.log(meta);
 
 function Hangul() {
     document.title = "Rythm of Hangul";
