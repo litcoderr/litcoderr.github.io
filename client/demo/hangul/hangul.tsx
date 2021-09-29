@@ -2,7 +2,7 @@ import { SSL_OP_EPHEMERAL_RSA } from 'constants';
 import { createWriteStream } from 'fs';
 import React, { useEffect, useState } from 'react';
 import logger from '../../util/logger';
-import meta from './meta_simp.json';
+import meta from './meta_simp_.json';
 
 class HangulSampler {
     context: CanvasRenderingContext2D;
@@ -119,7 +119,7 @@ class Blinker extends Updater {
 
     constructor(p: Particle) {
         super(p);
-        this.interval = 500;
+        this.interval = 300;
     }
 
     update = () => {
@@ -220,7 +220,7 @@ class Particle {
         ];
         this.shuffle_color();
         this.subscribed = [
-            //new Blinker(this)
+            new Blinker(this),
             new Woofer(this)
         ];
     }
