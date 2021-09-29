@@ -476,10 +476,26 @@ class Player {
 let animator: Animator;
 let player: Player;
 
+let is_hangul = (code: number): boolean => {
+    let is_hangul = false;
+
+    // is stand-alone letter (Lead, Vowel, Tail)
+    if(code>=12593 && code<=12643) {
+        is_hangul = true;
+    }
+
+    // is composed letter
+    if(code>=44032&&code<=55203) {
+        is_hangul = true;
+    }
+
+    return is_hangul;
+}
+
 let submit_hangul = () => {
     const field = document.getElementById("hangul_field") as HTMLInputElement;
     const input_char = field.value.charAt(0);
-    if(input_char !== "") {
+    if(input_char !== "" && is_hangul(field.value.charCodeAt(0))) {
         animator.setChar(input_char);
     }
     field.value = "";
