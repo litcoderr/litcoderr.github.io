@@ -2,7 +2,7 @@ import { SSL_OP_EPHEMERAL_RSA } from 'constants';
 import { createWriteStream } from 'fs';
 import React, { useEffect, useState } from 'react';
 import logger from '../../util/logger';
-import meta from './meta.json';
+import meta from './meta_simp.json';
 
 class HangulSampler {
     context: CanvasRenderingContext2D;
@@ -134,21 +134,79 @@ class Blinker extends Updater {
     }
 }
 
+console.log(meta);
+
+class Woofer extends Updater {
+    interval: number;
+
+    constructor(p: Particle) {
+        super(p);
+        this.interval = 50;
+    }
+
+    update = () => {
+        let center = {
+            x: this.p.width / 2,
+            y: this.p.height / 2
+        };
+        let cur_time = new Date();
+        let delta = cur_time.getTime() - this.last_updated.getTime();
+
+        if(delta >= this.interval) {
+            this.last_updated = cur_time;
+
+            // compute unit vector
+            let vector_x = this.p.origin_x - center.x;
+            let vector_y = this.p.origin_y - center.y;
+            let magnitude = Math.sqrt(Math.pow(vector_x, 2) + Math.pow(vector_y, 2));
+            vector_x /= magnitude;
+            vector_y /= magnitude;
+
+            // test using abs(sin) function
+            /*
+            let period = 1000;
+            let abs_sin_amp = Math.abs(Math.sin((2 * Math.PI * (new Date()).getTime()) / period));
+            */
+            let multiple = this.get_multiple();
+            this.p.current_x = this.p.origin_x + vector_x * multiple;
+            this.p.current_y = this.p.origin_y + vector_y * multiple;
+        }
+    }
+
+    get_multiple = (): number => {
+        // video playback time in seconds
+        const time = player.time;
+        if(time>0) {
+            let computed_multiple = 0;
+            // TODO read from meta data
+            return computed_multiple;
+        }else { // invalid time (player is not loaded yet)
+            return 0;
+        }
+    }
+}
+
 class Particle {
     context: CanvasRenderingContext2D;
     origin_x: number;
     origin_y: number;
     current_x: number;
     current_y: number;
+    width: number;
+    height: number;
     radius: number;
     color_choices: string[];
     color: string;
     subscribed: Updater[];
 
-    constructor(context: CanvasRenderingContext2D, x: number, y: number, radius: number) {
+    constructor(context: CanvasRenderingContext2D, x: number, y: number, width: number, height: number, radius: number) {
         this.context = context;
+        this.origin_x = x;
+        this.origin_y = y;
         this.current_x = x;
         this.current_y = y;
+        this.width = width;
+        this.height = height;
         this.radius = radius;
         this.color_choices = [
             "#3C4760",
@@ -159,6 +217,7 @@ class Particle {
         this.shuffle_color();
         this.subscribed = [
             //new Blinker(this)
+            new Woofer(this)
         ];
     }
 
@@ -211,22 +270,17 @@ class ParticleAnimator {
             coord.arr.forEach((c)=>{
                 let center_x = mu * c.x + ((width/2)-(x_len/2));
                 let center_y = mu * c.y + ((height/2)-(y_len/2));
-                this.parts.push(new Particle(this.context, center_x, center_y, radius));
+                this.parts.push(new Particle(this.context, center_x, center_y, width, height, radius));
             });
         }
+
+        // update current video playback time
+        player.updateTime();
 
         // draw initial particles
         this.parts.forEach((p)=>{
             p.draw();
         })
-
-        // draw rgb-splitter effect
-        //this.context.clearRect(0, 0, width, height);
-        /*
-        this.parts.forEach((p)=>{
-            p.effects.rgbSplitter.draw();
-        })
-        */
     }
 }
 
@@ -294,6 +348,7 @@ class Player {
     height: number;
     muted: boolean;
     setMuted: React.Dispatch<React.SetStateAction<boolean>>;
+    time: number;
 
     constructor(setMuted: React.Dispatch<React.SetStateAction<boolean>>) {
         // set dimension
@@ -307,6 +362,7 @@ class Player {
 
         this.muted = true;
         this.setMuted = setMuted;
+        this.time = 0;
 
         if(!window.YT) {
             const tag = document.createElement('script');
@@ -388,6 +444,22 @@ class Player {
             this.player.mute();
         }
         this.setMuted(this.muted);
+    }
+
+    getTime = (): number => {
+        if(this.player) {
+            if(this.player.getCurrentTime) {
+                return this.player.getCurrentTime();
+            }else {
+                return 0;
+            }
+        }else {
+            return -1;
+        }
+    }
+
+    updateTime = () => {
+        this.time= this.getTime();
     }
 }
 
