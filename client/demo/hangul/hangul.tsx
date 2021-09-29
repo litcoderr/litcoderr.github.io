@@ -134,8 +134,6 @@ class Blinker extends Updater {
     }
 }
 
-console.log(meta);
-
 class Woofer extends Updater {
     interval: number;
 
@@ -145,31 +143,36 @@ class Woofer extends Updater {
     }
 
     update = () => {
-        let center = {
-            x: this.p.width / 2,
-            y: this.p.height / 2
-        };
-        let cur_time = new Date();
-        let delta = cur_time.getTime() - this.last_updated.getTime();
+        if(!this.p.animator.is_muted) {
+            let center = {
+                x: this.p.width / 2,
+                y: this.p.height / 2
+            };
+            let cur_time = new Date();
+            let delta = cur_time.getTime() - this.last_updated.getTime();
 
-        if(delta >= this.interval) {
-            this.last_updated = cur_time;
+            if(delta >= this.interval) {
+                this.last_updated = cur_time;
 
-            // compute unit vector
-            let vector_x = this.p.origin_x - center.x;
-            let vector_y = this.p.origin_y - center.y;
-            let magnitude = Math.sqrt(Math.pow(vector_x, 2) + Math.pow(vector_y, 2));
-            vector_x /= magnitude;
-            vector_y /= magnitude;
+                // compute unit vector
+                let vector_x = this.p.origin_x - center.x;
+                let vector_y = this.p.origin_y - center.y;
+                let magnitude = Math.sqrt(Math.pow(vector_x, 2) + Math.pow(vector_y, 2));
+                vector_x /= magnitude;
+                vector_y /= magnitude;
 
-            // test using abs(sin) function
-            /*
-            let period = 1000;
-            let abs_sin_amp = Math.abs(Math.sin((2 * Math.PI * (new Date()).getTime()) / period));
-            */
-            let multiple = this.get_multiple();
-            this.p.current_x = this.p.origin_x + vector_x * multiple;
-            this.p.current_y = this.p.origin_y + vector_y * multiple;
+                // test using abs(sin) function
+                /*
+                let period = 1000;
+                let abs_sin_amp = Math.abs(Math.sin((2 * Math.PI * (new Date()).getTime()) / period));
+                */
+                let multiple = 25 * this.get_multiple();
+                this.p.current_x = this.p.origin_x + vector_x * multiple;
+                this.p.current_y = this.p.origin_y + vector_y * multiple;
+            }
+        }else {
+            this.p.current_x = this.p.origin_x;
+            this.p.current_y = this.p.origin_y;
         }
     }
 
@@ -177,8 +180,7 @@ class Woofer extends Updater {
         // video playback time in seconds
         const time = player.time;
         if(time>0) {
-            let computed_multiple = 0;
-            // TODO read from meta data
+            let computed_multiple = meta.data[Math.floor(time * meta.rate)];
             return computed_multiple;
         }else { // invalid time (player is not loaded yet)
             return 0;
@@ -188,6 +190,7 @@ class Woofer extends Updater {
 
 class Particle {
     context: CanvasRenderingContext2D;
+    animator: ParticleAnimator;
     origin_x: number;
     origin_y: number;
     current_x: number;
@@ -199,8 +202,9 @@ class Particle {
     color: string;
     subscribed: Updater[];
 
-    constructor(context: CanvasRenderingContext2D, x: number, y: number, width: number, height: number, radius: number) {
+    constructor(context: CanvasRenderingContext2D, animator: ParticleAnimator, x: number, y: number, width: number, height: number, radius: number) {
         this.context = context;
+        this.animator = animator;
         this.origin_x = x;
         this.origin_y = y;
         this.current_x = x;
@@ -248,11 +252,13 @@ class ParticleAnimator {
     sampler: HangulSampler;
     c: string;
     parts: Particle[];
+    is_muted: boolean;
 
     constructor(context: CanvasRenderingContext2D) {
         this.context = context;
         this.sampler = new HangulSampler(context);
         this.parts = [];
+        this.is_muted = true;
     }
 
     draw_hangul = (width: number, height: number, c: string) => {
@@ -270,7 +276,7 @@ class ParticleAnimator {
             coord.arr.forEach((c)=>{
                 let center_x = mu * c.x + ((width/2)-(x_len/2));
                 let center_y = mu * c.y + ((height/2)-(y_len/2));
-                this.parts.push(new Particle(this.context, center_x, center_y, width, height, radius));
+                this.parts.push(new Particle(this.context, this, center_x, center_y, width, height, radius));
             });
         }
 
@@ -332,6 +338,10 @@ class Animator {
      */
     setChar = (c: string) => {
         this.c = c;
+    }
+
+    setMuted = (is_muted: boolean) => {
+        this.particle.is_muted = is_muted;
     }
 }
 
@@ -489,6 +499,10 @@ function Hangul() {
             player = new Player(setMuted);
         }
     });
+
+    useEffect(()=>{
+        animator.setMuted(muted);
+    }, [muted])
 
     return (
         <div id="hangul_div">
