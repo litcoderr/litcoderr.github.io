@@ -119,7 +119,7 @@ class Blinker extends Updater {
 
     constructor(p: Particle) {
         super(p);
-        this.interval = 300;
+        this.interval = 350;
     }
 
     update = () => {
@@ -139,7 +139,7 @@ class Woofer extends Updater {
 
     constructor(p: Particle) {
         super(p);
-        this.interval = 50;
+        this.interval = 30;
     }
 
     update = () => {
