@@ -502,10 +502,10 @@ let submit_hangul = () => {
 }
 
 function Hangul() {
-    document.title = "Rythm of Hangul";
+    document.title = "Rhythm of Hangul";
 
     /**
-     * Feel the Rythm of Korea 음악을 particle 들이 바닥에 깔려 스펙토그램을 그리다가,
+     * Feel the Rhythm of Korea 음악을 particle 들이 바닥에 깔려 스펙토그램을 그리다가,
      * 글자를 인식하면, 글자 모양을 만든 후, 스펙토그램을 이루며 animate 한다
      */
     const [muted, setMuted] = useState(true);

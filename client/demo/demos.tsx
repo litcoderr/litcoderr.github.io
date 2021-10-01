@@ -4,8 +4,8 @@ import {Link} from "react-router-dom";
 
 const demo_urls = [
     {
-        title: "Feel the Rythm of Hangul",
-        url: "/demos/rythm_of_hangul",
+        title: "Feel the Rhythm of Hangul",
+        url: "/demos/rhythm_of_hangul",
         comp: Hangul
     }
 ];
