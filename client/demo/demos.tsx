@@ -1,5 +1,5 @@
 import React from 'react';
-import Hangul from "./hangul/hangul";
+import Hangul from "./rhythm_of_hangul/hangul";
 import {Link} from "react-router-dom";
 
 const demo_urls = [
@@ -7,7 +7,7 @@ const demo_urls = [
         title: "Feel the Rhythm of Hangul",
         url: "/demos/rhythm_of_hangul",
         comp: Hangul
-    }
+    },
 ];
 
 function DemoViewer() {

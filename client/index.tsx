@@ -55,8 +55,7 @@ function MainComponent(props: MainProps) {
             content="I am an undergraduate student at Hanyang University where I major in computer science & engineering.
                     For the past few years, Artificial Intelligence has been my area of interest hence participated as an intern
                     at various research teams from enterprise lab(NAVER CLOVA AI LAB) to university lab(SNU BI LAB).
-                    Recently, I am trying to learn and experiment diverse tech that might be useful in future projects.
-                    The ultimate goal is to contribute to a project which can potentially make a positive impact on the society.
+                    The ultimate goal is to contribute to a machine learning project that can potentially make a positive impact on its users.
                     I am always available for good insights and learning materials so reach out to me anytime via email and facebook dms."
             ></Paragraph>
             <Divider></Divider>
