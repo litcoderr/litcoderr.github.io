@@ -36,7 +36,7 @@ a:hover {
 }
 
 #headerFlex {
-    margin-top: 20px;
+    padding-top: 50px;
 }
 
 .flexContainer {
@@ -51,7 +51,6 @@ a:hover {
 }
 
 #sub {
-    margin-left: 10px;
 }
 
 .sub {

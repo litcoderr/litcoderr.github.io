@@ -10,6 +10,6 @@ app.use(express_1.default.static(path_1.default.join(__dirname, "../../")));
 app.get('/', function (req, res) {
     res.render("index.html");
 });
-app.listen(5000, function () {
-    console.log("Server Running @ 5000");
+app.listen(5001, function () {
+    console.log("Server Running @ 5001");
 });

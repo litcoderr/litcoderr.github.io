@@ -2,7 +2,8 @@ import React from "react";
 
 type ParagraphProps = {
     title: string,
-    content: string
+    content: string,
+    children: React.ReactNode
 };
 
 function Paragraph(props: ParagraphProps) {
@@ -13,6 +14,7 @@ function Paragraph(props: ParagraphProps) {
             </div>
             <div className="paragraphContent">
                 {props.content}
+                {props.children}
             </div>
         </div>
     );
