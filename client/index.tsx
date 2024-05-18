@@ -11,6 +11,8 @@ import {demo_urls} from "./demo/demos";
 import "./style.css";
 import PublicationsViewer from "./publications/viewer";
 import ExperienceViewer from "./experience/viewer";
+import CertificateViewer from "./certificate/viewer";
+import SkillsetViewer from "./skills/viewer";
 
 // set up dynamic vh for mobile viewports
 window.addEventListener('resize', () => {
@@ -72,7 +74,7 @@ function MainComponent(props: MainProps) {
             <Paragraph title="Education" content="">
                 <ul>
                     <li>[1] 2016.03-2019.02: <b>Dajeon Dongsin Science Highschool</b></li>
-                    <li>[2] 2019.03-: <b>Hanyang University CSE</b> (Computer Science and Engineering)</li>
+                    <li>[2] 2019.03-2025.02(expected graduation): <b>Hanyang University CSE</b> (Computer Science and Engineering)</li>
                 </ul>
             </Paragraph>
             <Divider></Divider>
@@ -83,6 +85,10 @@ function MainComponent(props: MainProps) {
             <PublicationsViewer></PublicationsViewer>
             <Divider></Divider>
             <ExperienceViewer></ExperienceViewer>
+            <Divider></Divider>
+            <CertificateViewer></CertificateViewer>
+            <Divider></Divider>
+            <SkillsetViewer></SkillsetViewer>
         </div>
     )
 }

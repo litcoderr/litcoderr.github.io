@@ -2,7 +2,7 @@ import React from 'react';
 
 const experiences = [
     {
-        period: '2023.03-2024.05',
+        period: '2023.03-2024.',
         workplace: 'Hanyang University MLLAB',
         url: 'http://hyumllab.hanyang.ac.kr/',
         role: 'Undergraduate Research Intern',
