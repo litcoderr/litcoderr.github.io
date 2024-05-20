@@ -2,12 +2,12 @@ import React from 'react';
 
 const publication_urls = [
     {
-        title: "UNet-LSTM-based Speech-to-Sign Language Translation for Hearing-Impaired People",
+        title: "[Disclaimer] This paper is under review",
         authors: ()=>(<p>
-            Yoongi Kim, Youngchae Chee, <a href='https://scholar.google.com/citations?hl=en&user=eGj3ay4AAAAJ'>Jung-Woo Ha</a>
+            Anonymous Authors
         </p>),
-        venue: "KCC 2019",
-        url: "https://www.dbpia.co.kr/journal/articleDetail?nodeId=NODE08763303",
+        venue: "ECCV 2024",
+        url: "",
     },
     {
         title: "Dense Video Retrieval with Spatio-Temporal Scene Graphs",
@@ -18,12 +18,12 @@ const publication_urls = [
         url: "https://www.dbpia.co.kr/journal/articleDetail?nodeId=NODE11705294"
     },
     {
-        title: "[Disclaimer] This paper is under review",
+        title: "UNet-LSTM-based Speech-to-Sign Language Translation for Hearing-Impaired People",
         authors: ()=>(<p>
-            Anonymous Authors
+            Yoongi Kim, Youngchae Chee, <a href='https://scholar.google.com/citations?hl=en&user=eGj3ay4AAAAJ'>Jung-Woo Ha</a>
         </p>),
-        venue: "ECCV 2024",
-        url: "",
+        venue: "KCC 2019",
+        url: "https://www.dbpia.co.kr/journal/articleDetail?nodeId=NODE08763303",
     },
 ] 
 
