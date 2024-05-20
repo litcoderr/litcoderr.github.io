@@ -8,7 +8,6 @@ type ContactComponentProps = {
 const contacts: {[key: string]: string} = {
     "github": "https://www.github.com/litcoderr",
     "email": "mailto:litcoderr@gmail.com",
-    "facebook": "https://www.facebook.com/litcoderr/",
 }
 
 function Header() {

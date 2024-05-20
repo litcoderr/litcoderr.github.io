@@ -13,6 +13,13 @@ const experiences = [
         </div>)}
     },
     {
+        period: '2021.02-2022.08',
+        worplace: 'Republic of Korea Army',
+        url: '',
+        role: 'Mandatory Military Service',
+        description: ()=>{return (<div></div>)}
+    },
+    {
         period: '2020.05-2020.09',
         workplace: 'Lion Rocket',
         role: 'Research Intern',
@@ -20,6 +27,17 @@ const experiences = [
         description: () => {return (
         <div>
             I worked as a research intern, successfully embedding emotion into conventional TTS (Tacotron) by conditioning the latent space.
+        </div>)}
+    },
+    {
+        period: '2019.03-2020.12',
+        workplace: 'HAI (한양대학교 AI 스터디그룹)',
+        role: 'Club President / Mentour',
+        url: 'https://github.com/HanyangTechAI',
+        description: () => {return (
+        <div>
+            I joined the club as a member in March 2019 and became the club president for the year 2020. During my presidency, I reorganized the curriculum and initiated systematized lectures, documenting them on GitHub.
+            I was responsible for the "Introduction to NLP and Signal Processing" lecture [<a href='https://github.com/HanyangTechAI/NLP_2020'>link</a>].
         </div>)}
     },
     {
