@@ -14,7 +14,7 @@ const experiences = [
     },
     {
         period: '2021.02-2022.08',
-        worplace: 'Republic of Korea Army',
+        workplace: '',
         url: '',
         role: 'Mandatory Military Service',
         description: ()=>{return (<div></div>)}

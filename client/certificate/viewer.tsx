@@ -8,6 +8,13 @@ const certificate = [
             Advanced High [200/200]
         </span>)}
     },
+    {
+        name: 'TOEIC',
+        date: '2024.06.05',
+        description: () => {return ( <span>
+            [975/990]
+        </span>)}
+    },
 ]
 
 function CertificateViewer() {
