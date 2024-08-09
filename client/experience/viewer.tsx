@@ -2,7 +2,18 @@ import React from 'react';
 
 const experiences = [
     {
-        period: '2023.03-2024.',
+        period: '2024.08-current',
+        workplace: 'KAIST IVY Lab (Image & Video Systems)',
+        url: 'https://www.ivylab.kaist.ac.kr/',
+        role: 'Undergraduate Research Intern',
+        description: () => {return (
+        <div>
+            I am currently studying and conducting research on VLM(Vision-Language Model)s @ <a href='https://www.ivylab.kaist.ac.kr/'>KAIST IVY LAB</a> under supervision of Prof. <a href='https://www.ivylab.kaist.ac.kr/people/professor'>Yong Man Ro</a>.
+            The goal is to optimize and improve the capabilities of VLMs. My ultimate vision is to incorporate other crucial modalities of human perception such as sound signal to build a true replica of a human brain.
+        </div>)}
+    },
+    {
+        period: '2023.03-2024.07',
         workplace: 'Hanyang University MLLAB',
         url: 'http://hyumllab.hanyang.ac.kr/',
         role: 'Undergraduate Research Intern',
