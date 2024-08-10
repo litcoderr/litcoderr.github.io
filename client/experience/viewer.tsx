@@ -3,7 +3,7 @@ import React from 'react';
 const experiences = [
     {
         period: '2024.08-current',
-        workplace: 'KAIST IVY Lab (Image & Video Systems)',
+        workplace: 'KAIST IVY (Integrated Vision & Language) Lab',
         url: 'https://www.ivylab.kaist.ac.kr/',
         role: 'Undergraduate Research Intern',
         description: () => {return (
