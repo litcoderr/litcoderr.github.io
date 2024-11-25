@@ -6,7 +6,15 @@ const publication_urls = [
         authors: ()=>(<p>
             Anonymous Authors
         </p>),
-        venue: "ECCV 2024",
+        venue: "CVPR 2025",
+        url: "",
+    },
+    {
+        title: "[Disclaimer] This paper is under review",
+        authors: ()=>(<p>
+            Anonymous Authors
+        </p>),
+        venue: "AAAI 2025",
         url: "",
     },
     {
