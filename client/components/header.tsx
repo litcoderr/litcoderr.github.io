@@ -24,9 +24,9 @@ function Header() {
 function CurrentStatus() {
     return (
         <div id="currentStatus">
-            Undergraduate Student <b>@</b><br></br>
-            <a href="https://www.hanyang.ac.kr/web/eng">Hanyang Univ.</a> '24<br></br>
-            <a href="http://cs.hanyang.ac.kr/eng">Computer Science and Engineering</a>
+            Masters Candidate<b>@</b><br></br>
+            <a href="https://www.kaist.ac.kr/kr/">KAIST</a> '24<br></br>
+            <a href="https://ee.kaist.ac.kr/">Electrical Engineering</a>
         </div>
     );
 }
