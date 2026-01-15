@@ -24,8 +24,8 @@ function Header() {
 function CurrentStatus() {
     return (
         <div id="currentStatus">
-            Masters Candidate<b>@</b><br></br>
-            <a href="https://www.kaist.ac.kr/kr/">KAIST</a> '24<br></br>
+            PhD Candidate<b>@</b><br></br>
+            <a href="https://www.kaist.ac.kr/kr/">KAIST</a> '26<br></br>
             <a href="https://ee.kaist.ac.kr/">Electrical Engineering</a>
         </div>
     );
