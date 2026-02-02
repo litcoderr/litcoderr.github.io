@@ -1,14 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 type PostProps = {
     title: string;
-    content: ()=>JSX.Element;
-}
+    markdown: string;
+    date?: string;
+};
 
 function PostPage(props: PostProps) {
     return (
-        <div id="main">
+        <div id="main" className="postPage">
             <div className="postHeader">
                 <div>
                     <Link to="/">Home</Link>
@@ -16,10 +19,15 @@ function PostPage(props: PostProps) {
                 <div className="header">
                     {props.title}
                 </div>
+                {props.date && <div className="postMeta">{props.date}</div>}
             </div>
-            <props.content></props.content>
+            <div className="markdownBody">
+                <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                    {props.markdown}
+                </ReactMarkdown>
+            </div>
         </div>
-    )
+    );
 }
 
 export default PostPage;

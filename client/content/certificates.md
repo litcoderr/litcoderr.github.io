@@ -1,0 +1,2 @@
+- **TOEIC Speaking** — 2024.03.03 — Advanced High (200/200)
+- **TOEIC** — 2024.06.05 — 975/990

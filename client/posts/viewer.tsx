@@ -1,14 +1,29 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import IntroToNft from './intro_to_nft';
+import matter from 'gray-matter';
 
-const post_urls = [
-    {
-        title: "Intro to Non-Fungible Tokens",
-        url: "/posts/intro_to_nft",
-        comp: IntroToNft
-    }
-] 
+import recollectingFirstYearOfGradSchoolMd from '../content/posts/recollecting-first-year-of-grad-school.md';
+
+type Post = {
+    slug: string;
+    title: string;
+    date?: string;
+    content: string;
+};
+
+const rawPosts: { slug: string; markdown: string }[] = [
+    { slug: 'recollecting-first-year-of-grad-school', markdown: recollectingFirstYearOfGradSchoolMd },
+];
+
+const posts: Post[] = rawPosts.map((p) => {
+    const parsed = matter(p.markdown);
+    return {
+        slug: p.slug,
+        title: parsed.data.title || p.slug,
+        date: parsed.data.date,
+        content: parsed.content,
+    };
+});
 
 function PostViewer() {
     return (
@@ -17,15 +32,18 @@ function PostViewer() {
                 Posts
             </div>
             <div id="post_viewer_list_container">
-            {
-                post_urls.map(elem=>{
-                    return (<Link to={elem.url} key={"link_"+elem.url}>{elem.title}</Link>)
-                })
-            }
+                {posts.map((elem) => (
+                    <div key={elem.slug} className="postListItem">
+                        <div>
+                            <Link to={`/posts/${elem.slug}`}>{elem.title}</Link>
+                        </div>
+                        {elem.date && <div className="postListMeta">{elem.date}</div>}
+                    </div>
+                ))}
             </div>
         </div>
-    )
+    );
 }
 
 export default PostViewer;
-export {post_urls};
+export { posts };

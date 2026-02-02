@@ -6,7 +6,8 @@
       "esModuleInterop": true,
       "target": "es5",
       "jsx": "react",
-      "resolveJsonModule": true
+      "resolveJsonModule": true,
+      "skipLibCheck": true
     },
     "exclude": ["./server", "./client/dist", "./bundle.js"]
 }

@@ -1,18 +1,25 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { HashRouter, Route } from "react-router-dom";
+import matter from "gray-matter";
 import Divider from "./components/divider";
 import Header from "./components/header";
-import Paragraph from "./components/paragraph";
 import ProfilePic from "./components/profilepic";
-import {post_urls} from "./posts/viewer";
-import {demo_urls} from "./demo/demos";
+import MarkdownSection from "./components/markdown-section";
+import PostPage from "./components/post";
+import PostViewer, { posts } from "./posts/viewer";
+
+import educationMd from "./content/education.md";
+import researchMd from "./content/research-interest.md";
+import publicationsMd from "./content/publications.md";
+import experienceMd from "./content/experience.md";
+import certificatesMd from "./content/certificates.md";
+import skillsMd from "./content/skills.md";
+import profileMd from "./content/profile.md";
 
 import "./style.css";
-import PublicationsViewer from "./publications/viewer";
-import ExperienceViewer from "./experience/viewer";
-import CertificateViewer from "./certificate/viewer";
-import SkillsetViewer from "./skills/viewer";
+
+const profileMeta = matter(profileMd).data as { banner?: string };
 
 // set up dynamic vh for mobile viewports
 window.addEventListener('resize', () => {
@@ -25,16 +32,13 @@ function App() {
         <HashRouter>
             <Route exact path="/" component={MainComponent}></Route>
             {
-                post_urls.map(elem => {
+                posts.map(post => {
                     return(
-                        <Route path={elem.url} component={elem.comp} key={elem.url}></Route>
-                    )
-                })
-            }
-            {
-                demo_urls.map(elem => {
-                    return(
-                        <Route path={elem.url} component={elem.comp} key={elem.url}></Route>
+                        <Route
+                            path={`/posts/${post.slug}`}
+                            render={() => <PostPage title={post.title} markdown={post.content} date={post.date} />}
+                            key={post.slug}
+                        ></Route>
                     )
                 })
             }
@@ -65,30 +69,25 @@ function MainComponent(props: MainProps) {
     document.title = "bio";
     return (
         <div id="main">
-            <div style={bannerStyle}>Curriculum Vitae</div>
+            <div style={bannerStyle}>{profileMeta.banner || "Curriculum Vitae"}</div>
             <div className="flexContainer" id="headerFlex">
                 <Header></Header>
                 <ProfilePic></ProfilePic>
             </div>
             <Divider></Divider>
-            <Paragraph title="Education" content="">
-                <ul>
-                    <li>[1] 2016.03-2019.02: <b>Dajeon Dongsin Science Highschool</b></li>
-                    <li>[2] 2019.03-2025.02(expected graduation): <b>Hanyang University CSE</b> (Computer Science and Engineering)</li>
-                </ul>
-            </Paragraph>
+            <MarkdownSection title="Education" markdown={educationMd} />
             <Divider></Divider>
-            <Paragraph title="Research Interest" content="
-            Multi-Modal ML, Computer Vision, Signal Processing, Emboddied AI
-            "> <></> </Paragraph>
+            <MarkdownSection title="Research Interests" markdown={researchMd} />
             <Divider></Divider>
-            <PublicationsViewer></PublicationsViewer>
+            <MarkdownSection title="Publications" markdown={publicationsMd} />
             <Divider></Divider>
-            <ExperienceViewer></ExperienceViewer>
+            <MarkdownSection title="Experiences" markdown={experienceMd} />
             <Divider></Divider>
-            <CertificateViewer></CertificateViewer>
+            <MarkdownSection title="Certificates & Language" markdown={certificatesMd} />
             <Divider></Divider>
-            <SkillsetViewer></SkillsetViewer>
+            <MarkdownSection title="Skills" markdown={skillsMd} />
+            <Divider></Divider>
+            <PostViewer />
         </div>
     )
 }

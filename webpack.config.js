@@ -8,7 +8,8 @@ module.exports = {
             use: [{
                 loader: 'ts-loader',
                 options: {
-                    configFile: "tsconfig.client.json"
+                    configFile: "tsconfig.client.json",
+                    transpileOnly: true
                 }
             }],
             exclude: ['/node_modules/', '/server']
@@ -17,10 +18,15 @@ module.exports = {
             test: /\.css$/i,
             exclude: ['/node_modules/', '/server'],
             use: ["style-loader", "css-loader"]
+        },
+        {
+            test: /\.md$/,
+            exclude: ['/node_modules/', '/server'],
+            use: "raw-loader"
         }]
     },
     resolve: {
-        extensions: ['.tsx', '.ts', '.js', 'css'],
+        extensions: ['.tsx', '.ts', '.js', '.md', 'css'],
     },
     output: {
         filename: 'bundle.js',

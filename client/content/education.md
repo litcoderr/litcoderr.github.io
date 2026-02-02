@@ -1,0 +1,2 @@
+- **2016.03–2019.02** — Dajeon Dongsin Science Highschool
+- **2019.03–2025.02** — Hanyang University, **Computer Science and Engineering (CSE)**

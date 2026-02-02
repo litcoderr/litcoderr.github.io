@@ -1,0 +1,2 @@
+- **Programming Languages** — Python (5/5), C/C++ (3/5), Java (2/5)
+- **Frameworks** — PyTorch (5/5), NumPy (5/5), TensorFlow (3/5)

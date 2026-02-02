@@ -1,51 +1,58 @@
 import React from "react";
+import matter from "gray-matter";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import profileMd from "../content/profile.md";
 
-type ContactComponentProps = {
-    name: string,
-    link: string
-}
+type Contact = {
+    label: string;
+    url: string;
+};
 
-const contacts: {[key: string]: string} = {
-    "github": "https://www.github.com/litcoderr",
-    "email": "mailto:litcoderr@gmail.com",
-}
+const parsed = matter(profileMd);
+const meta = parsed.data as {
+    name?: string;
+    sub?: string;
+    status?: string;
+    contacts?: Contact[];
+};
 
 function Header() {
     return (
         <div id="headerdiv">
-            <span className="header">Youngchae (James) Chee</span><br></br>
-            <span id="sub" className="sub">지영채</span>
-            <CurrentStatus></CurrentStatus>
-            <Contacts></Contacts>
+            <span className="header">{meta.name || "Name"}</span><br></br>
+            {meta.sub && <span id="sub" className="sub">{meta.sub}</span>}
+            <CurrentStatus status={meta.status || ""}></CurrentStatus>
+            <Contacts contacts={meta.contacts || []}></Contacts>
         </div>
     );
 }
 
-function CurrentStatus() {
+function CurrentStatus({ status }: { status: string }) {
+    if (!status) return null;
     return (
         <div id="currentStatus">
-            PhD Candidate<b>@</b><br></br>
-            <a href="https://www.kaist.ac.kr/kr/">KAIST</a> '26<br></br>
-            <a href="https://ee.kaist.ac.kr/">Electrical Engineering</a>
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                {status}
+            </ReactMarkdown>
         </div>
     );
 }
 
-function Contacts() {
+function Contacts({ contacts }: { contacts: Contact[] }) {
+    if (!contacts || contacts.length === 0) return null;
     return (
         <div id="contacts">
             {
-                Object.keys(contacts).map((key: string, index: number)=> {
-                    return (
-                        <ContactComponents key={key} name={key} link={contacts[key]}></ContactComponents>
-                    )
-                })
+                contacts.map((contact) => (
+                    <ContactComponents key={contact.label} name={contact.label} link={contact.url}></ContactComponents>
+                ))
             }
         </div>
     );
 }
 
-function ContactComponents(props: ContactComponentProps) {
+function ContactComponents(props: { name: string, link: string }) {
     return (
         <span className="contactComponent">
             [<a href={props.link}>{props.name}</a>]
