@@ -117,3 +117,4 @@ server_dist
 coverage/
 
 *.mp3
+.DS_Store
