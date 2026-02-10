@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import matter from 'gray-matter';
 
 import recollectingFirstYearOfGradSchoolMd from '../content/posts/recollecting-first-year-of-grad-school.md';
+import introductionToVisionLanguageActionModels from '../content/posts/introduction-to-vision-language-action-models.md';
 
 type Post = {
     slug: string;
@@ -13,6 +14,7 @@ type Post = {
 
 const rawPosts: { slug: string; markdown: string }[] = [
     { slug: 'recollecting-first-year-of-grad-school', markdown: recollectingFirstYearOfGradSchoolMd },
+    { slug: 'introduction-to-vision-language-action-models', markdown: introductionToVisionLanguageActionModels },
 ];
 
 const posts: Post[] = rawPosts.map((p) => {
