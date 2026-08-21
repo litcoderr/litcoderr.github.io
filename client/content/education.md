@@ -1,4 +1,3 @@
-- **2016.03–2019.02** — Dajeon Dongsin Science Highschool
-- **2019.03–2025.02** — Hanyang University, **Computer Science and Engineering (CSE)**
-- **2025.03–2026.02** — KAIST IVY Lab M.S. Candidate
-- **2026.03-current** - KAIST IVY Lab Integrated M.S. and PhD Program
+- **2025.03-current** - KAIST IVY Lab Integrated M.S. and PhD Program
+- **2019.03-2025.02** - Hanyang University, **Computer Science and Engineering (CSE)**
+- **2016.03-2019.02** - Dajeon Dongsin Science Highschool

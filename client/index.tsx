@@ -10,7 +10,6 @@ import PostPage from "./components/post";
 import PostViewer, { posts } from "./posts/viewer";
 
 import educationMd from "./content/education.md";
-import researchMd from "./content/research-interest.md";
 import publicationsMd from "./content/publications.md";
 import experienceMd from "./content/experience.md";
 import certificatesMd from "./content/certificates.md";
@@ -76,8 +75,6 @@ function MainComponent(props: MainProps) {
             </div>
             <Divider></Divider>
             <MarkdownSection title="Education" markdown={educationMd} />
-            <Divider></Divider>
-            <MarkdownSection title="Research Interests" markdown={researchMd} />
             <Divider></Divider>
             <MarkdownSection title="Publications" markdown={publicationsMd} />
             <Divider></Divider>
